@@ -1,33 +1,27 @@
-import React, { Fragment } from 'react'
+import React  from 'react'
 import PropTypes from 'prop-types'
+import If from './If'
 
-const IconButton = (props) => {
-    console.log(props.hide)
-    if (props.hide) {
-        return null
-    } else {
-        return (
-            <Fragment>
-                <button className={`btn btn-${props.btnStyle}`} onClick={props.onClick}>
-                    <i className={props.iconClass}></i>
-                </button>
-            </Fragment>
-        )
-    }
-}
+const IconButton = (props) => (
+    <If test={!props.hide}>
+        <button className={`btn btn-${props.btnStyle}`} onClick={props.onClick}>
+            <i className={props.iconClass}></i>
+        </button>
+    </If>
+)
 
 
 
 IconButton.propTypes = {
     hide: PropTypes.bool,
     btnStyle: PropTypes.string,
-    iconClass:  PropTypes.string,
-    onClick:  PropTypes.func
+    iconClass: PropTypes.string,
+    onClick: PropTypes.func
 }
 
 
 IconButton.defaultProps = {
-    hide: false, 
+    hide: false,
     btnStyle: "primary"
 }
 

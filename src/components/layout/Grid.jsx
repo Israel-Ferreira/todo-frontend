@@ -24,8 +24,7 @@ Grid.propTypes = {
 Grid.defaultProps = {
     xs: 12,
     sm: 8,
-    md: 6,
-    lg: 4
+    md: 6
 }
 
 export default Grid
