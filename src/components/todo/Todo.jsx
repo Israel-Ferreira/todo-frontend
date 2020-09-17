@@ -6,9 +6,11 @@ import TodoList from './TodoList'
 export default (props) => {
     return (
         <div className="todo">
-            <PageHeader name="Todo" small="Cadastrar" />
-            <TodoForm />
-            <TodoList />
+            <div className="container">
+                <PageHeader name="Todo" small="Cadastrar" />
+                <TodoForm />
+                <TodoList />
+            </div>
         </div>
     )
 }
