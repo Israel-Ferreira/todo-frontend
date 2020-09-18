@@ -27,9 +27,14 @@ export default (props) => {
         const resp = await TodoService.deleteTodo(todoId)
 
         if(resp.status === 204){
-            await refresh()
+            await refresh(description)
         }
         
+    }
+
+
+    const handleClear = async () => {
+        await refresh()
     }
 
 
@@ -45,7 +50,9 @@ export default (props) => {
             setTodos(resp)
         }
 
-        setDescription('')
+        setDescription(description)
+
+        
     }
 
 
@@ -65,13 +72,13 @@ export default (props) => {
 
     const handleMarkAsDone = async (todo) => {
         await TodoService.markAsDone(todo)
-        await refresh()
+        await refresh(description)
     }
 
 
     const handleMarkAsPending = async (todo) => {
         await TodoService.markAsPending(todo)
-        await refresh()
+        await refresh(description)
     }
 
 
@@ -86,7 +93,7 @@ export default (props) => {
         <div className="todo">
             <div className="container">
                 <PageHeader name="Todo" small="Cadastrar" />
-                <TodoForm handleAdd={handleAdd} handleChange={handleChange}  description={description} handleSearch={handleSearch} />
+                <TodoForm handleAdd={handleAdd} handleChange={handleChange}  description={description} handleSearch={handleSearch} handleClear={handleClear} />
                 <TodoList todos={todos} handleRemove={handleRemove} handleMarkAsDone={handleMarkAsDone} handleMarkAsPending={handleMarkAsPending}  />
             </div>
         </div>
