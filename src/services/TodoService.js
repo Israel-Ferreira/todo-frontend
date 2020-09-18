@@ -9,10 +9,22 @@ class TodoService {
     async getTodos(){
         try {
             const resp =  await  axios.get(this.URL)
+            console.log(resp)
             console.log(resp.data)
             return await resp.data
         }catch(err){
             return false
+        }
+    }
+
+    async searchTodo(description){
+        try {
+            console.log(description)
+            const resp = await axios.get(`${this.URL}?description__regex=/${description}/`)
+
+            return await resp.data
+        } catch (error) {
+            return error.message
         }
     }
 
@@ -22,6 +34,29 @@ class TodoService {
             return resp
         } catch (error) {
             return error.message
+        }
+    }
+
+    async markAsDone(todo){
+        try{
+            todo['done'] = true
+            const resp = await axios.put(`${this.URL}/${todo._id}`, todo)
+
+            return resp
+        }catch(err){
+            return err.message
+        }
+    }
+
+
+    async markAsPending(todo){
+        try {
+            todo['done'] = false
+            const resp = await axios.put(`${this.URL}/${todo._id}`, todo)
+            console.log(resp.status)
+            return resp
+        }catch(err){
+            return err
         }
     }
 

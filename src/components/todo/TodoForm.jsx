@@ -12,6 +12,7 @@ export default props => {
                 </Grid>
                 <Grid xs={12} sm={3} md={2}>
                     <IconButton iconClass="fa fa-plus" onClick={props.handleAdd} />
+                    <IconButton iconClass="fas fa-search" onClick={() => props.handleSearch()} />
                 </Grid>
             </div>
         </div>
