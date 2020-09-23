@@ -93,8 +93,8 @@ export default (props) => {
         <div className="todo">
             <div className="container">
                 <PageHeader name="Todo" small="Cadastrar" />
-                <TodoForm handleAdd={handleAdd} handleChange={handleChange}  description={description} handleSearch={handleSearch} handleClear={handleClear} />
-                <TodoList todos={todos} handleRemove={handleRemove} handleMarkAsDone={handleMarkAsDone} handleMarkAsPending={handleMarkAsPending}  />
+                <TodoForm handleAdd={handleAdd} handleChange={handleChange}  handleSearch={handleSearch} handleClear={handleClear} />
+                <TodoList handleRemove={handleRemove} handleMarkAsDone={handleMarkAsDone} handleMarkAsPending={handleMarkAsPending}  />
             </div>
         </div>
     )
