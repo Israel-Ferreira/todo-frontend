@@ -1,4 +1,4 @@
-import {DESCRIPTION_CHANGED, SEARCHED_TODOS, TODO_ADDED} from '../actions/actionTypes'
+import {DESCRIPTION_CHANGED, SEARCHED_TODOS, TODO_CLEAR} from '../actions/actionTypes'
 
 const initialState = {
     description: '',
@@ -12,7 +12,7 @@ const TodoReducer =  (state = initialState, action) => {
             return {...state, description: action.payload}
         case SEARCHED_TODOS:
             return {...state, list: action.payload} 
-        case TODO_ADDED:
+        case TODO_CLEAR:
             return {...state, description: ''}
         default:
             return state

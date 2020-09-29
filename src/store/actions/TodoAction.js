@@ -1,5 +1,5 @@
 import TodoService from '../../services/TodoService'
-import {DESCRIPTION_CHANGED, SEARCHED_TODOS, TODO_ADDED, TODO_MARKED_AS_DONE, TODO_MARKED_AS_PENDING, TODO_REMOVED} from '../actions/actionTypes'
+import {DESCRIPTION_CHANGED, SEARCHED_TODOS, TODO_CLEAR, TODO_MARKED_AS_DONE, TODO_MARKED_AS_PENDING, TODO_REMOVED} from '../actions/actionTypes'
 
 
 
@@ -29,8 +29,7 @@ const changeDescription = newDescription => {
 const add =  async description => {
     if(description){
         const resp = await TodoService.createTodo({description})
-        console.log(typeof resp)
-        return [{type: TODO_ADDED, payload: resp.data}, await search()]
+        return [{type: TODO_CLEAR, payload: resp.data}, await search()]
     }
 }
 
@@ -49,7 +48,7 @@ const remove = async todo => {
 const markAsDone = async todo => {
     if(todo){
         const resp = await TodoService.markAsDone(todo)
-        return [{type: TODO_MARKED_AS_DONE, payload: resp.data}, await search()]
+        return [{type: TODO_MARKED_AS_DONE, payload: resp.data}, await search(todo.description)]
     }
 }
 
@@ -57,9 +56,12 @@ const markAsDone = async todo => {
 const markAsPending = async todo => {
     if(todo){
         const resp = await TodoService.markAsPending(todo)
-        return [{type: TODO_MARKED_AS_PENDING, payload: resp.data}, await search()]
+        return [{type: TODO_MARKED_AS_PENDING, payload: resp.data}, await search(todo.description)]
     }
 }
 
+const clear = async () => ([{type: TODO_CLEAR},await search()])
 
-export {changeDescription, search,add, remove, markAsDone, markAsPending}
+
+
+export {changeDescription, search,add, remove, markAsDone, markAsPending, clear}

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import Grid from '../layout/Grid'
 import IconButton from '../layout/IconButton'
-import {changeDescription, search, add} from '../../store/actions/TodoAction'
+import {changeDescription, search, add, clear} from '../../store/actions/TodoAction'
 
 const TodoForm = props => {
     const keyHandler = (evt) => {
@@ -11,7 +11,7 @@ const TodoForm = props => {
             const  {description} = props
             evt.shiftKey ? props.searchTodos(description) : props.addTodo(description)
         } else if (evt.key === "Escape") {
-            props.handleClear()
+            props.clearForm()
         }
     }
     
@@ -27,7 +27,7 @@ const TodoForm = props => {
                 <Grid xs={12} sm={3} md={2}>
                     <IconButton iconClass="fa fa-plus" onClick={() => props.addTodo(props.description)} />
                     <IconButton iconClass="fas fa-search" onClick={() => props.searchTodos(props.description)} />
-                    <IconButton iconClass="fas fa-eraser" onClick={() => props.searchTodos()} />
+                    <IconButton iconClass="fas fa-eraser" onClick={() => props.clearForm()} />
                 </Grid>
             </div>
         </div>
@@ -52,6 +52,12 @@ const mapDispatchToProps = dispatch => {
 
         async addTodo(description){
             const action = await add(description)
+            dispatch(action)
+        },
+
+
+        async clearForm(){
+            const action =  await clear()
             dispatch(action)
         }
     }
