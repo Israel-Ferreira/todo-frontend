@@ -1,5 +1,11 @@
-import {createStore, combineReducers} from 'redux'
+import {createStore, combineReducers, applyMiddleware} from 'redux'
+import multi from 'redux-multi'
+
+
 import TodoReducer from './reducers/TodoReducer'
+
+
+
 
 const reducers = combineReducers({
     todo: TodoReducer
@@ -7,7 +13,7 @@ const reducers = combineReducers({
 
 const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 
-const store = createStore(reducers, devTools)
+const store = applyMiddleware(multi)(createStore)(reducers, devTools)
 
 
 export default store

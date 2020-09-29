@@ -1,25 +1,20 @@
-import React, { useEffect } from 'react'
+import React  from 'react'
 import { connect } from 'react-redux'
 
 import Grid from '../layout/Grid'
 import IconButton from '../layout/IconButton'
-import {changeDescription, search} from '../../store/actions/TodoAction'
+import {changeDescription, search, add} from '../../store/actions/TodoAction'
 
 const TodoForm = props => {
     const keyHandler = (evt) => {
         if (evt.key === 'Enter') {
-            evt.shiftKey ? props.handleSearch() : props.handleAdd()
+            const  {description} = props
+            evt.shiftKey ? props.searchTodos(description) : props.addTodo(description)
         } else if (evt.key === "Escape") {
             props.handleClear()
         }
     }
-
-
-
-    useEffect(() => {
-        const fecthTodos = async () => await props.searchTodos()
-        fecthTodos()
-    })
+    
 
 
 
@@ -30,7 +25,7 @@ const TodoForm = props => {
                     <input type="text" value={props.description} className="form-control" onChange={e => props.onChangeDescription(e.target.value)} placeholder="Adicione uma tarefa" onKeyUp={keyHandler} />
                 </Grid>
                 <Grid xs={12} sm={3} md={2}>
-                    <IconButton iconClass="fa fa-plus" onClick={props.handleAdd} />
+                    <IconButton iconClass="fa fa-plus" onClick={() => props.addTodo(props.description)} />
                     <IconButton iconClass="fas fa-search" onClick={() => props.searchTodos(props.description)} />
                     <IconButton iconClass="fas fa-eraser" onClick={() => props.searchTodos()} />
                 </Grid>
@@ -52,6 +47,11 @@ const mapDispatchToProps = dispatch => {
 
         async searchTodos(description = "") {
             const action = await search(description)
+            dispatch(action)
+        },
+
+        async addTodo(description){
+            const action = await add(description)
             dispatch(action)
         }
     }

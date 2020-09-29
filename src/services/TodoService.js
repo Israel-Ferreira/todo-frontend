@@ -9,8 +9,6 @@ class TodoService {
     async getTodos(){
         try {
             const resp =  await  axios.get(this.URL)
-            console.log(resp)
-            console.log(resp.data)
             return await resp.data
         }catch(err){
             return false
@@ -19,7 +17,6 @@ class TodoService {
 
     async searchTodo(description){
         try {
-            console.log(description)
             const resp = await axios.get(`${this.URL}?description__regex=/${description}/`)
 
             return await resp.data
@@ -39,9 +36,7 @@ class TodoService {
 
     async markAsDone(todo){
         try{
-            todo['done'] = true
-            const resp = await axios.put(`${this.URL}/${todo._id}`, todo)
-
+            const resp = await axios.put(`${this.URL}/${todo._id}`, {...todo, done: true})
             return resp
         }catch(err){
             return err.message
@@ -51,9 +46,7 @@ class TodoService {
 
     async markAsPending(todo){
         try {
-            todo['done'] = false
-            const resp = await axios.put(`${this.URL}/${todo._id}`, todo)
-            console.log(resp.status)
+            const resp = await axios.put(`${this.URL}/${todo._id}`, {...todo, done: false})
             return resp
         }catch(err){
             return err
